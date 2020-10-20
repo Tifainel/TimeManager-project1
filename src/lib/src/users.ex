@@ -37,6 +37,15 @@ defmodule Src.Users do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+
+  def get_user_by_email_and_username(attrs) do
+    email = attrs["email"]
+    query = from u in "users",
+              where: u.email == ^email and u.username == ^attrs["username"],
+              select: [:id, :email, :username]
+    Repo.one(query)
+  end
+
   @doc """
   Creates a user.
 

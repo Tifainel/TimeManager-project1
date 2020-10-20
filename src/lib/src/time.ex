@@ -102,6 +102,20 @@ defmodule Src.Time do
     Workingtime.changeset(workingtime, attrs)
   end
 
+
+
+  def get_one_workingtime(attrs) do
+    query = from w in "workingtimes",
+              where: w.id == ^String.to_integer(attrs["id"]) and w.user_id == ^String.to_integer(attrs["user_id"]),
+              select: [:id, :user_id, :start, :end]
+    Repo.one(query)
+  end
+
+
+
+
+
+
   alias Src.Time.Clock
 
   @doc """
@@ -146,6 +160,7 @@ defmodule Src.Time do
 
   """
   def create_clock(attrs \\ %{}) do
+    IO.inspect(attrs)
     %Clock{}
     |> Clock.changeset(attrs)
     |> Repo.insert()
@@ -167,6 +182,15 @@ defmodule Src.Time do
     clock
     |> Clock.changeset(attrs)
     |> Repo.update()
+  end
+
+
+
+  def get_clock_by_user_id(attr) do
+    query = from c in "clocks",
+              where: c.user_id == ^String.to_integer(attr["user_id"]),
+              select: [:id, :time, :status, :user_id]
+    Repo.one(query)
   end
 
   @doc """
@@ -197,4 +221,6 @@ defmodule Src.Time do
   def change_clock(%Clock{} = clock, attrs \\ %{}) do
     Clock.changeset(clock, attrs)
   end
+
+
 end
