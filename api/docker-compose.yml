@@ -1,4 +1,5 @@
-version: "3"
+
+version: "3.5"
 
 services:
   phoenix:
@@ -6,9 +7,10 @@ services:
     volumes:
       - ./src:/app
     ports:
-      - "4000:4000"
+      - "4001:4001"
     depends_on:
       - db
+      
   db:
     image: postgres:9.6
     environment:
