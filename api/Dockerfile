@@ -10,7 +10,18 @@ RUN apt-get update && \
     mix local.rebar --force
 
 ENV APP_HOME /app
-RUN mkdir $APP_HOME
+ENV SECRET_KEY_BASE cXQQ+PM8bHGCf78d7y8Fm1Aj/LXgbNVRWyF18feM49YVpMPSKlJVxLlBzkfYqQe0
+ENV DATABASE_URL ecto://postgres:postgres@db/timemanagerapi_dev
+ENV PORT=4001
+ENV MIX_ENV=prod
+COPY ./src $APP_HOME
 WORKDIR $APP_HOME
+
+RUN mix deps.get &&\
+    mix compile &&\
+    npm run deploy --prefix ./assets &&\
+    mix phx.digest
+    # mix ecto.create &&\
+    # mix ecto.migrate 
 
 CMD ["mix", "phx.server"]
