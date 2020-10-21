@@ -40,4 +40,10 @@ defmodule SrcWeb.WorkingtimeController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def get_one(conn, params) do
+    workingtime = Time.get_one_workingtime(params)
+    render(conn, "workingtime.json", workingtime: workingtime)
+
+  end
 end

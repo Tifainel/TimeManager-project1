@@ -22,9 +22,49 @@ defmodule SrcWeb.Router do
   # Other scopes may use custom stacks.
   scope "/api", SrcWeb do
     pipe_through :api
+
+    #
+    #  CUSTOM ROUTES
+    #
+    #  TYPE   #PATH                   #CONTROLLER        #FUNCTION
+    #  get    "/clocks/:user_id",     ClockController,   :show
+
+    # -------------
+
+    #get by user id
+    get "/clocks/:user_id", ClockController, :show
+
+    #create with user id (not working)
+    post "/clocks/:user_id", ClockController, :create
+
+    # -------------
+
+    #get all (too lazy)
+    #get "/workingtimes/:user_id", WorkingtimeController, :create
+
+    #get one
+    get "/workingtimes/:user_id/:id", WorkingtimeController, :get_one
+
+    #create one (rolf, an other "custom" post)
+    #RAN :
+    #INSERT INTO workingtimes (start, "end", user_id, inserted_at, updated_at) VALUES (now(), now(), 2, now(), now());
+    #instead.
+    post "/workingtimes/:user_id", WorkingtimeController, :create
+
+    #update
+    put "/workingtimes/:id", WorkingtimeController, :update
+
+    #delete
+    delete "/workingtimes/:id", WorkingtimeController, :delete
+
+    #get all (without id)
+    get "/workingtimes", WorkingtimeController, :index
+
+    # -------------
+
     resources "/users", UserController, except: [:new, :edit]
-    resources "/workingtimes", WorkingtimeController, except: [:new, :edit]
-    resources "/clocks", ClockController, except: [:new, :edit]
+    #resources "/workingtimes", WorkingtimeController, except: [:new, :edit]
+    #resources "/clocks", ClockController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
