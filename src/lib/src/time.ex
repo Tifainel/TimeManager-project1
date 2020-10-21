@@ -112,6 +112,19 @@ defmodule Src.Time do
   end
 
 
+  @doc """
+    Returns a list of map (workingtime)
+  """
+  def get_all_workingtime!(attrs) do
+    ds = NaiveDateTime.from_iso8601!(attrs["start"])
+    de = NaiveDateTime.from_iso8601!(attrs["end"])
+
+    query = from w in "workingtimes",
+              where: w.start >= ^ds and w.end <= ^de,
+              select: [:id, :start, :end]
+
+    Repo.all(query)
+  end
 
 
 
@@ -160,7 +173,6 @@ defmodule Src.Time do
 
   """
   def create_clock(attrs \\ %{}) do
-    IO.inspect(attrs)
     %Clock{}
     |> Clock.changeset(attrs)
     |> Repo.insert()
@@ -221,6 +233,5 @@ defmodule Src.Time do
   def change_clock(%Clock{} = clock, attrs \\ %{}) do
     Clock.changeset(clock, attrs)
   end
-
 
 end

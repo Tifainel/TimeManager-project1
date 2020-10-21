@@ -11,11 +11,12 @@ defmodule SrcWeb.WorkingtimeController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"workingtime" => workingtime_params}) do
+  def create(conn, workingtime_params) do
+
     with {:ok, %Workingtime{} = workingtime} <- Time.create_workingtime(workingtime_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.workingtime_path(conn, :show, workingtime))
+     # |> put_resp_header("location", Routes.workingtime_path(conn, :show, workingtime))
       |> render("show.json", workingtime: workingtime)
     end
   end
@@ -45,5 +46,16 @@ defmodule SrcWeb.WorkingtimeController do
     workingtime = Time.get_one_workingtime(params)
     render(conn, "workingtime.json", workingtime: workingtime)
 
+  end
+
+  def get_all(conn, params) do
+    workingtimes = Time.get_all_workingtime!(params)
+    IO.inspect(workingtimes)
+    #render(conn, "show.json", item)
+
+    #hf tifaine !
+    conn
+    |> put_status(:ok)
+    |> json(workingtimes)
   end
 end

@@ -7,7 +7,8 @@ defmodule SrcWeb.UserController do
   action_fallback SrcWeb.FallbackController
 
   def index(conn, params) do
-    # users = Users.list_users()
+    #users = Users.list_users()
+    #IO.inspect(users);
     # render(conn, "index.json", users: users)
 
     user = Users.get_user_by_email_and_username(params)
@@ -17,6 +18,8 @@ defmodule SrcWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    #%{"email" => "mymail@tezst.fr", "username" => "aymerizzck"}
+    IO.inspect(user_params)
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)
