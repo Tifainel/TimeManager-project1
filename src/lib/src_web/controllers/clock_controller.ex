@@ -12,13 +12,13 @@ defmodule SrcWeb.ClockController do
   end
 
   def create(conn, clock_params) do
-    IO.inspect(clock_params)
-    # with {:ok, %Clock{} = clock} <- Time.create_clock(%{"clock"=>clock_params}) do
-    #   conn
-    #   |> put_status(:created)
-    #   |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
-    #   |> render("show.json", clock: clock)
-    # end
+    IO.inspect(Time.create_clock(%{"clock"=>clock_params}))
+    with {:ok, %Clock{} = clock} <- Time.create_clock(%{"clock"=>clock_params}) do
+      conn
+      |> put_status(:created)
+      #|> put_resp_header("location", Routes.clock_path(conn, :show, clock))
+      |> render("show.json", clock: clock)
+    end
   end
 
   def show(conn, user_id) do

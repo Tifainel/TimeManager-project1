@@ -8,6 +8,6 @@ defmodule Src.Repo.Migrations.CreateUsers do
 
       timestamps()
     end
-
+    create index(:users, [:username, :email], unique: true)
   end
 end

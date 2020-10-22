@@ -34,21 +34,18 @@ defmodule SrcWeb.Router do
     #get by user id
     get "/clocks/:user_id", ClockController, :show
 
-    #create with user id (not working)
+    #create with user id and it works !
     post "/clocks/:user_id", ClockController, :create
 
     # -------------
 
-    #get all (too lazy)
-    #get "/workingtimes/:user_id", WorkingtimeController, :create
+    #get all (not lazy anymore, it works !)
+    get "/workingtimes/:user_id", WorkingtimeController, :get_all
 
     #get one
     get "/workingtimes/:user_id/:id", WorkingtimeController, :get_one
 
-    #create one (rolf, an other "custom" post)
-    #RAN :
-    #INSERT INTO workingtimes (start, "end", user_id, inserted_at, updated_at) VALUES (now(), now(), 2, now(), now());
-    #instead.
+    #create one (finaly, WORKING !)
     post "/workingtimes/:user_id", WorkingtimeController, :create
 
     #update

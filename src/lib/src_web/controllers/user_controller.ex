@@ -7,12 +7,7 @@ defmodule SrcWeb.UserController do
   action_fallback SrcWeb.FallbackController
 
   def index(conn, params) do
-    # users = Users.list_users()
-    # render(conn, "index.json", users: users)
-
     user = Users.get_user_by_email_and_username(params)
-    #IO.puts(params["email"])
-    #IO.inspect(user)
     render(conn, "user.json", user: user)
   end
 
@@ -24,11 +19,6 @@ defmodule SrcWeb.UserController do
       |> render("show.json", user: user)
     end
   end
-
-  # def get_one_user_by_email_and_username(conn, params) do
-  #   user = Users.get_user_by_email_and_username(params)
-  #   render(conn, "show.json", user: user)
-  # end
 
   def show(conn, %{"id" => id}) do
     user = Users.get_user!(id)
