@@ -12,7 +12,6 @@ defmodule SrcWeb.ClockController do
   end
 
   def create(conn, clock_params) do
-    IO.inspect(Time.create_clock(%{"clock"=>clock_params}))
     with {:ok, %Clock{} = clock} <- Time.create_clock(%{"clock"=>clock_params}) do
       conn
       |> put_status(:created)
@@ -43,5 +42,13 @@ defmodule SrcWeb.ClockController do
     with {:ok, %Clock{}} <- Time.delete_clock(clock) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  def get_last_by_user_id(conn, %{"user_id"=>user_id}) do
+    # IO.inspect(user_id)
+    clock = Time.get_last_clock_user_id(user_id)
+
+    # IO.inspect(clock)
+    render(conn, "clock.json", clock: clock)
   end
 end

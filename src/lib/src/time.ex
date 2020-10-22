@@ -115,12 +115,12 @@ defmodule Src.Time do
   @doc """
     Returns a list of map (workingtime)
   """
-  def get_all_workingtime!(attrs) do
+  def get_all_workingtime(attrs) do
     ds = NaiveDateTime.from_iso8601!(attrs["start"])
     de = NaiveDateTime.from_iso8601!(attrs["end"])
 
     query = from w in "workingtimes",
-              where: w.start >= ^ds and w.end <= ^de,
+              where: w.start >= ^ds and w.end <= ^de and w.user_id == ^String.to_integer(attrs["user_id"]),
               select: [:id, :start, :end]
 
     Repo.all(query)
@@ -205,6 +205,15 @@ defmodule Src.Time do
     Repo.all(query)
   end
 
+
+  def get_last_clock_user_id(user_id) do
+    query = from c in "clocks",
+              where: c.user_id == ^String.to_integer(user_id),
+              order_by: c.id, limit: 1,
+              select: [:id, :time, :status, :user_id]
+    Repo.one(query)
+
+  end
   @doc """
   Deletes a clock.
 
