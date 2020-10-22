@@ -34,6 +34,9 @@ defmodule SrcWeb.Router do
     #get by user id
     get "/clocks/:user_id", ClockController, :show
 
+    #get last clock by user id
+    get "/clocks/last/:user_id", ClockController, :get_last_by_user_id
+
     #create with user id and it works !
     post "/clocks/:user_id", ClockController, :create
 

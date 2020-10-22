@@ -49,8 +49,7 @@ defmodule SrcWeb.WorkingtimeController do
   end
 
   def get_all(conn, params) do
-    workingtimes = Time.get_all_workingtime!(params)
-    IO.inspect(workingtimes)
+    workingtimes = Time.get_all_workingtime(params)
     conn
     |> put_status(:ok)
     |> json(workingtimes)
