@@ -21,5 +21,6 @@ defmodule Src.Users.User do
     |> validate_inclusion(:role, 0..2)
     |> unique_constraint([:username])
     |> unique_constraint([:email])
+
   end
 end
