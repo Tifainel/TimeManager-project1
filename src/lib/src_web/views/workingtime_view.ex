@@ -13,6 +13,8 @@ defmodule SrcWeb.WorkingtimeView do
   def render("workingtime.json", %{workingtime: workingtime}) do
     %{id: workingtime.id,
       start: workingtime.start,
-      end: workingtime.end}
+      end: workingtime.end,
+      user_id: workingtime.user_id
+    }
   end
 end
