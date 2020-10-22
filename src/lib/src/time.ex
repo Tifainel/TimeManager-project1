@@ -202,7 +202,7 @@ defmodule Src.Time do
     query = from c in "clocks",
               where: c.user_id == ^String.to_integer(attr["user_id"]),
               select: [:id, :time, :status, :user_id]
-    Repo.one(query)
+    Repo.all(query)
   end
 
 
