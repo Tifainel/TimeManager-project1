@@ -51,9 +51,6 @@ defmodule SrcWeb.WorkingtimeController do
   def get_all(conn, params) do
     workingtimes = Time.get_all_workingtime!(params)
     IO.inspect(workingtimes)
-    #render(conn, "show.json", item)
-
-    #hf tifaine !
     conn
     |> put_status(:ok)
     |> json(workingtimes)
