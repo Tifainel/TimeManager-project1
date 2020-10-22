@@ -4,6 +4,7 @@ defmodule Src.Users.Team do
 
   schema "teams" do
     field :members, {:array, :integer}
+    field :name, :string
     field :user_id, :id
 
     timestamps()
@@ -12,7 +13,7 @@ defmodule Src.Users.Team do
   @doc false
   def changeset(team, attrs) do
     team
-    |> cast(attrs, [:members])
-    |> validate_required([:members])
+    |> cast(attrs, [:members, :name, :user_id])
+    |> validate_required([:user_id, :name])
   end
 end

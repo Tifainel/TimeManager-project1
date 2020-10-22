@@ -31,7 +31,8 @@ defmodule SrcWeb.Router do
     #  get    "/clocks/:user_id",     ClockController,   :show
 
     # -------------
-
+    # CLOCKS
+    # -------------
     #get by user id
     get "/clocks/:user_id", ClockController, :show
 
@@ -41,6 +42,8 @@ defmodule SrcWeb.Router do
     #create with user id and it works !
     post "/clocks/:user_id", ClockController, :create
 
+    # -------------
+    # WORKINGTIMES
     # -------------
 
     #get all (not lazy anymore, it works !)
@@ -62,11 +65,42 @@ defmodule SrcWeb.Router do
     get "/workingtimes", WorkingtimeController, :index
 
     # -------------
+    # USERS
+    # -------------
 
+
+    # -------------
+    # TEAMS
+    # -------------
+
+    #get all teams
+    get "/teams/", TeamController, :index
+
+    #get all user teams
+    get "/teams/:user_id", TeamController, :get_all_by_user
+
+    #get a team by user_id and team_id
+    get "/teams/:user_id/:id", TeamController, :get_team
+
+    #get a team by user_id and team_id
+    get "/member_teams/:member_id", TeamController, :get_member_teams
+
+    #put a team
+    put "/teams/:id", TeamController, :update
+
+    #delete a team
+    delete "/teams/:id", TeamController, :delete
+
+    #create a team
+    post "/teams/", TeamController, :create
+
+
+
+    #default
     resources "/users", UserController, except: [:new, :edit]
     # resources "/workingtimes", WorkingtimeController, except: [:new, :edit]
     # resources "/clocks", ClockController, except: [:new, :edit]
-    resources "/teams", TeamController, except: [:new, :edit]
+    # resources "/teams", TeamController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
