@@ -11,7 +11,7 @@ defmodule Src.Users.User do
   end
 
   # Role de l'utilisateur, utiliser Enum.at(role, **index**)
-  role = ["user","manager", "general mananger"]
+  #role = ["user","manager", "general mananger"]
 
   @doc false
   def changeset(user, attrs) do

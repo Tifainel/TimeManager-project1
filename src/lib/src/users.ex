@@ -205,4 +205,27 @@ defmodule Src.Users do
   def change_team(%Team{} = team, attrs \\ %{}) do
     Team.changeset(team, attrs)
   end
+
+
+  def get_team_by_user_id(user_id) do
+    query = from t in "teams",
+              where: t.user_id == ^String.to_integer(user_id),
+              select: [:id, :user_id, :name, :members]
+    Repo.all(query)
+  end
+
+  def get_team_by_user_and_team_id(attrs) do
+    query = from t in "teams",
+              where: t.user_id == ^String.to_integer(attrs["user_id"]) and t.id == ^String.to_integer(attrs["id"]),
+              select: [:id, :user_id, :name, :members]
+    Repo.one(query)
+  end
+
+  def get_teams_by_member(member_id) do
+    query = from t in "teams",
+              where: ^String.to_integer(member_id) == fragment("ANY(members)"),
+              select: [:id, :user_id, :name, :members]
+    Repo.all(query)
+
+  end
 end
