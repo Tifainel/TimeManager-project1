@@ -18,7 +18,8 @@ defmodule Src.Users.User do
     user
     |> cast(attrs, [:username, :email, :role])
     |> validate_required([:username, :email, :role])
-    |> unique_constraint([:username, :email])
     |> validate_inclusion(:role, 0..2)
+    |> unique_constraint([:username])
+    |> unique_constraint([:email])
   end
 end

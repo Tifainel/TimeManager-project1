@@ -60,14 +60,9 @@ defmodule SrcWeb.Router do
     # -------------
 
     resources "/users", UserController, except: [:new, :edit]
-<<<<<<< HEAD
-    #resources "/workingtimes", WorkingtimeController, except: [:new, :edit]
-    #resources "/clocks", ClockController, except: [:new, :edit]
-=======
     resources "/workingtimes", WorkingtimeController, except: [:new, :edit]
     resources "/clocks", ClockController, except: [:new, :edit]
     resources "/teams", TeamController, except: [:new, :edit]
->>>>>>> 747918a... premier ajout de teams
   end
 
   # Enables LiveDashboard only for development
