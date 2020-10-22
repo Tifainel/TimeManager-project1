@@ -23,8 +23,10 @@ defmodule SrcWeb.ClockController do
 
   def show(conn, user_id) do
     #IO.inspect(user_id)
-    clock = Time.get_clock_by_user_id(user_id);
-    render(conn, "clock.json", clock: clock)
+    clocks = Time.get_clock_by_user_id(user_id);
+    conn
+    |> put_status(:ok)
+    |> json(clocks)
   end
 
   def update(conn, %{"id" => id, "clock" => clock_params}) do
