@@ -39,10 +39,9 @@ defmodule Src.Users do
 
 
   def get_user_by_email_and_username(attrs) do
-    email = attrs["email"]
     query = from u in "users",
-              where: u.email == ^email and u.username == ^attrs["username"],
-              select: [:id, :email, :username]
+              where: u.email == ^attrs["email"] and u.username == ^attrs["username"],
+              select: [:id, :email, :username, :role]
     Repo.one(query)
   end
 
